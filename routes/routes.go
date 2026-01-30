@@ -12,6 +12,12 @@ import (
 func SetupRoutes() *http.ServeMux {
 	mux := http.NewServeMux()
 
+	// Health Check
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK - Jamu API is healthy"))
+	})
+
 	// Swagger UI
 	mux.Handle("/swagger/", httpSwagger.WrapHandler)
 
